@@ -10,33 +10,10 @@ const GridInput = ({rows, columns}) => {
   const [gridData, setGridData] = useState(
     Array(rows).fill(Array(columns).fill('')),
   );
-
-  // const fetchExcelData = async filePath => {
-  //   try {
-  //     // Read the Excel file from the provided filePath
-  //     const fileData = await RNFS.readFile(filePath, 'base64');
-
-  //     // Parse the Excel data using XLSX
-  //     const workbook = XLSX.read(fileData, {type: 'base64'});
-  //     // const sheetName = workbook.SheetNames[0]; // Assuming there's only one sheet
-  //     const worksheet = workbook.Sheets['Sheet1'];
-
-  //     // Convert the worksheet data to a 2D array
-  //     const gridDataFetched = XLSX.utils.sheet_to_json(worksheet, {header: 1});
-
-  //     // Now you have the data in the gridData array
-  //     setGridData(gridDataFetched);
-  //     console.log(gridDataFetched);
-  //   } catch (error) {
-  //     console.error('Error reading the Excel file: ', error);
-  //     return null;
-  //   }
-  // };
-
   // To store a simple value (e.g., a string)
   const storeData = async () => {
     try {
-      await AsyncStorage.setItem('Sheet1', JSON.stringify(gridData)); // Replace 'key' and 'value' with your data
+      await AsyncStorage.setItem('Sheet1', JSON.stringify(gridData));
       console.log('Data stored successfully.');
     } catch (error) {
       console.error('Error storing data: ', error);
@@ -46,7 +23,7 @@ const GridInput = ({rows, columns}) => {
   // To retrieve data
   const retrieveData = async () => {
     try {
-      const data = await AsyncStorage.getItem('Sheet1'); // Replace 'key' with the key you used to store the data
+      const data = await AsyncStorage.getItem('Sheet1');
       if (data !== null) {
         setGridData(JSON.parse(data));
         console.log('Retrieved data:', data);
@@ -72,7 +49,7 @@ const GridInput = ({rows, columns}) => {
     setGridData(updatedGridData);
   };
 
-  const columnHeaders = ['A', 'B', 'C', 'D', 'E']; // Add more as needed
+  const columnHeaders = ['A', 'B', 'C', 'D', 'E'];
   const rowHeaders = Array.from({length: rows}, (_, i) => (i + 1).toString());
 
   return (
@@ -99,7 +76,6 @@ const GridInput = ({rows, columns}) => {
                   style={styles.input}
                   value={cell}
                   onChangeText={value => {
-                    //   console.log(rowIndex + "2" + colIndex);
                     updateGridData(rowIndex, colIndex, value);
                   }}
                 />

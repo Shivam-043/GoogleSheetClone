@@ -5,19 +5,13 @@ import XLSX from 'xlsx';
 
 const Navbar = ({onDownload}) => {
   const handleDownload = async () => {
-    // Convert gridData to an Excel workbook
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.aoa_to_sheet(onDownload);
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-
-    console.log('Hello');
-    // Write the workbook to a file
     const excelData = XLSX.write(workbook, {
       bookType: 'xlsx',
       type: 'base64',
     });
-
-    console.log(excelData);
     const filePath = `${RNFS.DownloadDirectoryPath}/example.xlsx`;
 
     try {
